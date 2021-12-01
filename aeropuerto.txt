@@ -1,0 +1,100 @@
+//Crear repositorio en Github
+gh repo create aeropuerto
+
+//Instalar laravel
+composer create-project laravel/laravel aeropuerto
+
+//Moverte al directorio creado
+cd aeropuerto
+
+//Composer
+composer install
+
+/NPM
+npm install
+
+//Instalar Tailwind
+https://tailwindcss.com/docs/guides/laravel
+npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+
+//Crear fichero config tailwind
+npx tailwindcss init
+
+//Modificar purge en tailwind.config.js
+code tailwind.config.js 
+purge: [
+     './resources/**/*.blade.php',
+     './resources/**/*.js',
+     './resources/**/*.vue',
+],
+
+
+//Añadir dentro del array en el fichero webpack.mix.js
+code webpack.mix.js
+
+require("tailwindcss"),
+
+//Añadir 3 lineas en .resouces/css/app.css
+code ./resources/css/app.css
+
+/* ./resources/css/app.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+//Modificar app.blade.php
+resources/views/layouts/app.blade.php
+
+  <!doctype html>
+  <head>
+    <!-- ... --->
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  </head>
+  <!-- ... --->
+  
+//Ejecutar npm run dev
+npm run dev
+
+
+//GIT/GITHUB
+//Creamos repositorio nuevo en Github
+
+//Iniciamos Git
+git init
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/dperezrom/aeropuerto.git
+git push -u origin master
+
+
+//BASE DE DATOS
+//Crear BD
+sudo -u postgres createdb aeropuerto
+
+//Crear usuario
+sudo -u postgres createuser -P laravel
+
+//Conexión a la DB
+psql -h localhost -U laravel -d aeropuerto
+
+//Cambiar propietario al usuario laravel
+sudo -u postgres psql -d aeropuerto
+ALTER DATABASE aeropuerto OWNER TO laravel;
+
+
+//Modificar .env
+//Copiamos .env.example
+cp .env.example .env
+
+//Fichero .env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=aeropuerto
+DB_USERNAME=laravel
+DB_PASSWORD=laravel
+
+//Generar key en el fichero .env -> APP_KEY=...)
+php artisan key:generate
